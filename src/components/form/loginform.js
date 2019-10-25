@@ -1,29 +1,58 @@
 import React from 'react'
+import TextField from '@material-ui/core/TextField'
+import useStyles from './form.styles'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+import './login.style.css'
 
-const LoginForm = ({handleLogin,username,password, handleUsername, handlePassword}) => (
-    <form onSubmit={handleLogin}>
+const LoginForm = ({
+  handleLogin,
+  username,
+  password,
+  handleUsername,
+  handlePassword,
+}) => (
+  <div>
+    <form onSubmit={handleLogin} className={useStyles.container} noValidate>
+      <Typography variant="h5" gutterBottom>
+        Log in
+      </Typography>
       <div>
-        username
-        <input
-          type="text"
+        <TextField
+          id="outlined-name"
           autoComplete="username"
+          label="Username"
           value={username}
-          name="Username"
+          className={useStyles.textField}
+          margin="normal"
+          variant="outlined"
           onChange={handleUsername}
         />
       </div>
       <div>
-        password
-        <input
-          type="password"
+        <TextField
+          id="outlined-password-input"
+          label="Password"
           value={password}
-          name="Password"
-          autoComplete="current-password"
           onChange={handlePassword}
+          className={useStyles.textField}
+          type="password"
+          autoComplete="current-password"
+          margin="normal"
+          variant="outlined"
         />
       </div>
-      <button type="submit">login</button>
     </form>
-  );
+    <Button
+      type="submit"
+      onClick={handleLogin}
+      variant="contained"
+      color="primary"
+      className={useStyles.button}
+    >
+      Login
+    </Button>
+  </div>
+)
 
 export default LoginForm

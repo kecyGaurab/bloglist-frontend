@@ -6,6 +6,7 @@ import ErrorNotification from './components/notification/error-notification'
 import Notification from './components/notification/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import './App.css'
 
 import {useState, useEffect} from 'react'
 
@@ -127,12 +128,12 @@ const App = () => {
 
   return (
     <div>
-      <h1>Blogs</h1>
+      <div className="nav-bar">Blogs</div>
       <div className="pop-up">
         <Notification message={message} />
         <ErrorNotification errorMessage={errorMessage} />
       </div>
-      <h2>Login</h2>
+     
 
       {user === null ? (
         <LoginForm
