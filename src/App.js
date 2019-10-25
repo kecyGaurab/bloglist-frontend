@@ -1,6 +1,7 @@
 import React from 'react'
 import Blog from './components/Blog'
-import Notification from './components/Notification'
+import ErrorNotification from './components/notification/error-notification'
+import Notification from './components/notification/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -14,7 +15,8 @@ const App = () => {
     url: '',
     likes: '',
   })
-  const [errormessage, setErrorMessage] = useState(null)
+  const [message, setMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -86,8 +88,8 @@ const App = () => {
     setUser(null)
     setUsername('')
     setPassword('')
-    // window.localStorage.removeItem('loggedBlogUser')
-    window.localStorage.clear()
+    window.localStorage.removeItem('loggedBlogUser')
+    
   }
 
   const handleTitleChange = event => {
@@ -119,11 +121,31 @@ const App = () => {
       likes: newBlog.likes,
       id: blogs.length + 1,
     }
+    if(!newBlog.title || !newBlog.author){
+      setErrorMessage('missing blog title or author')
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000)
+      return
+    }
 
-    blogService.create(blogObj).then(data => {
+    blogService
+    .create(blogObj)
+    .then(data => {
       setBlogs(blogs.concat(data))
       setNewBlog('')
+    
+    setMessage(`a new blog ${blogObj.title} by ${blogObj.author} added`)
+    setTimeout(() => {
+      setMessage(null)
+    }, 5000)})
+    .catch(error => {
+      setErrorMessage(error.response.data.error);
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000)
     })
+ 
   }
 
   const blogForm = () => (
@@ -162,9 +184,10 @@ const App = () => {
   return (
     <div>
       <h1>Blogs</h1>
-
-      <Notification message={errormessage} />
-
+      <div className="pop-up">
+        <Notification message={message} />
+        <ErrorNotification errorMessage={errorMessage} />
+      </div>
       <h2>Login</h2>
 
       {user === null ? (

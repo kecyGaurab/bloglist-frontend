@@ -1,0 +1,24 @@
+.notification {
+    color: green;
+    padding: 5px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    background: lightgrey;
+    border-style: solid;
+    border-radius: 5px;
+    border: green;
+    display: block;
+    font-family: 'PT Sans', sans-serif;
+  }
+  .error {
+    color: red;
+    padding: 5px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    background: lightgrey;
+    border-style: solid;
+    border-radius: 5px;
+    border: red;
+    display: block;
+    font-family: 'PT Sans', sans-serif;
+  }
