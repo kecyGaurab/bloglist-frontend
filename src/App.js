@@ -1,11 +1,17 @@
 import React from 'react'
-import Blog from './components/Blog'
+import Blog from './components/Blog/Blog'
 import BlogForm from './components/form/blogform'
 import LoginForm from './components/form/loginform'
 import ErrorNotification from './components/notification/error-notification'
 import Notification from './components/notification/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import Button from '@material-ui/core/Button'
+import AppStyle from './App.style'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
+
+
 import './App.css'
 
 import {useState, useEffect} from 'react'
@@ -16,7 +22,7 @@ const App = () => {
     title: '',
     author: '',
     url: '',
-    likes: '',
+    likes: 0
   })
   const [message, setMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
@@ -133,7 +139,6 @@ const App = () => {
         <Notification message={message} />
         <ErrorNotification errorMessage={errorMessage} />
       </div>
-     
 
       {user === null ? (
         <LoginForm
@@ -145,8 +150,26 @@ const App = () => {
         />
       ) : (
         <div>
-          <p>{user.name} is logged in</p>
-          <button onClick={logOut}>log out</button>
+          <div>
+            <Paper className={AppStyle.root}>
+              <Typography variant="h5" component="h3">
+                <p>{user.name} is logged in</p>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className={AppStyle.button}
+                  onClick={logOut}
+                >
+                  Logout
+                </Button>
+              </Typography>
+            </Paper>
+          </div>
+
+          <div className="new-blog">
+            <h3> Create a new blog</h3>
+          </div>
+
           <div>
             <BlogForm
               addBlog={addBlog}
@@ -155,11 +178,16 @@ const App = () => {
               handleUrlChange={handleUrlChange}
             />
           </div>
-          <div>
+          <Button onClick={addBlog} variant="contained" color="primary" className={AppStyle.button}>
+        Create
+      </Button>
+
+          <h2>Blogs</h2>
+          
             {blogs.map(blog => (
-              <Blog key={blog.id} blog={blog} />
+              <Blog className="blogs" key={blog.id} blog={blog} />
             ))}
-          </div>
+          
         </div>
       )}
     </div>

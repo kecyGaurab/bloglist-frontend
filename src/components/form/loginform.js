@@ -3,7 +3,6 @@ import TextField from '@material-ui/core/TextField'
 import useStyles from './form.styles'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
-import './login.style.css'
 
 const LoginForm = ({
   handleLogin,
