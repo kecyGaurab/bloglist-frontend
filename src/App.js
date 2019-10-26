@@ -11,10 +11,10 @@ import AppStyle from './App.style'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 
-
 import './App.css'
 
 import {useState, useEffect} from 'react'
+import Toggalable from './components/toggle/toggalable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -22,13 +22,14 @@ const App = () => {
     title: '',
     author: '',
     url: '',
-    likes: 0
+    likes: 0,
   })
   const [message, setMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [loginVisible, setLoginVisible] = useState(false)
 
   useEffect(() => {
     blogService.getAll().then(initialBlogs => {
@@ -64,6 +65,38 @@ const App = () => {
         setErrorMessage(null)
       }, 5000)
     }
+  }
+
+  const loginForm = () => {
+    const hideWhenVisible = {display: loginVisible ? 'none' : ''}
+    const showWhenVisible = {display: loginVisible ? '' : 'none'}
+
+    return (
+      <React.Fragment>
+        <div style={hideWhenVisible}>
+          <Button
+            variant="contained"
+            style={{width:"84px"}}
+            color="primary"
+            onClick={() => setLoginVisible(true)}
+          >
+            login
+          </Button>
+        </div>
+        <div style={showWhenVisible}>
+          <LoginForm
+            handleLogin={handleLogin}
+            username={username}
+            password={password}
+            handleUsername={handleUsername}
+            handlePassword={handlePassword}
+          />
+          <Button style={{marginTop:"5px"}} variant="contained" onClick={() => setLoginVisible(false)}>
+            cancel
+          </Button>
+        </div>
+        </React.Fragment>
+    )
   }
 
   const logOut = event => {
@@ -141,13 +174,7 @@ const App = () => {
       </div>
 
       {user === null ? (
-        <LoginForm
-          handleLogin={handleLogin}
-          handlePassword={handlePassword}
-          handleUsername={handleUsername}
-          username={username}
-          password={password}
-        />
+        loginForm()
       ) : (
         <div>
           <div>
@@ -155,6 +182,7 @@ const App = () => {
               <Typography variant="h5" component="h3">
                 <p>{user.name} is logged in</p>
                 <Button
+                style={{width:'104.03px'}}
                   variant="contained"
                   color="secondary"
                   className={AppStyle.button}
@@ -166,28 +194,33 @@ const App = () => {
             </Paper>
           </div>
 
-          <div className="new-blog">
+          {/* <div className="new-blog">
             <h3> Create a new blog</h3>
-          </div>
-
-          <div>
-            <BlogForm
-              addBlog={addBlog}
-              handleAuthorChange={handleAuthorChange}
-              handleTitleChange={handleTitleChange}
-              handleUrlChange={handleUrlChange}
-            />
-          </div>
-          <Button onClick={addBlog} variant="contained" color="primary" className={AppStyle.button}>
-        Create
-      </Button>
+          </div> */}
+          <Toggalable buttonLabel="New Blog">
+            <div>
+              <BlogForm
+                addBlog={addBlog}
+                handleAuthorChange={handleAuthorChange}
+                handleTitleChange={handleTitleChange}
+                handleUrlChange={handleUrlChange}
+              />
+            </div>
+            <Button
+              onClick={addBlog}
+              variant="contained"
+              color="primary"
+              className={AppStyle.button}
+            >
+              Create
+            </Button>
+          </Toggalable>
 
           <h2>Blogs</h2>
-          
-            {blogs.map(blog => (
-              <Blog className="blogs" key={blog.id} blog={blog} />
-            ))}
-          
+
+          {blogs.map(blog => (
+            <Blog className="blogs" key={blog.id} blog={blog} />
+          ))}
         </div>
       )}
     </div>

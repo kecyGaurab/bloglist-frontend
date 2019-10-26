@@ -43,6 +43,7 @@ const LoginForm = ({
       </div>
     </form>
     <Button
+      style={{width:'88px'}}
       type="submit"
       onClick={handleLogin}
       variant="contained"
