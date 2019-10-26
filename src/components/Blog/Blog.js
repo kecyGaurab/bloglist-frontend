@@ -1,22 +1,11 @@
 import React from 'react'
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography'
-import  useStylesBlog  from './blog.style.js'
+import './blog.styles.css'
 
-
-
-
-const Blog = ({ blog }) => (
-    <div>
-    <Paper className={useStylesBlog.root}>
-        <Typography variant="h5" component="h3">
-        <div>{blog.title} </div>
-        </Typography>
-        <Typography component="p">
-        <div>{blog.author}</div>
-        </Typography>
-      </Paper>
-      </div>)
-  
+const Blog = ({blog}) => (
+  <div className='blogs'>
+    <h3>{blog.title}</h3>
+    <p>{blog.author}</p>
+  </div>
+)
 
 export default Blog
