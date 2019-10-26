@@ -1,0 +1,45 @@
+.nav-bar {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+    background-color: #141629;
+    color:white;
+    font-size:40px;
+    
+  }
+  .user {
+    font-family: 'Fira Sans', sans-serif;
+    font-style: bold;
+    font-size: 25px;
+  }
+  h2{
+    font-family:sans-serif;
+   
+  }
+
+/* 
+ 
+  
+  h3 {
+    font-family: sans-serif;
+    margin:0px;
+    width:400px;
+  }
+
+  p{
+    margin-top:10px;
+  }
+
+  
+
+  .blogs{
+  
+    font-size: 10%;
+  }
+
+  .new-blog{
+    margin-top:20px;
+  } */
+

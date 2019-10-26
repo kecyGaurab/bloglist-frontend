@@ -1,0 +1,9 @@
+.blogs {
+    border:hidden;
+    height: 80px;
+    margin:5px;
+    border-radius: 10px;
+    background-color: aliceblue;
+    font-family: sans-serif;
+    box-shadow: 3px 3px lightgray;
+}

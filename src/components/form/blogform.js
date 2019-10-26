@@ -1,36 +1,47 @@
 import React from 'react'
+import useStyles from './form.styles'
+import TextField from '@material-ui/core/TextField'
 
-const BlogForm = ({addBlog,handleAuthorChange,handleTitleChange,handleUrlChange}) => (
-    <form onSubmit={addBlog}>
-      <div>
-        <label>
-          Title:
-          <input type="text" onChange={handleTitleChange} />
-        </label>
-      </div>
+const BlogForm = ({
+  addBlog,
+  handleAuthorChange,
+  handleTitleChange,
+  handleUrlChange,
+}) => (
+  <form onSubmit={addBlog}>
+    <div>
+      <TextField
+        id="outlined-name"
+        label="Title"
+        className={useStyles.textField}
+        onChange={handleTitleChange}
+        margin="normal"
+        variant="outlined"
+      />
+    </div>
 
-      <div>
-        <label>
-          Author:
-          <input type="text" onChange={handleAuthorChange} />
-        </label>
-      </div>
+    <div>
+      <TextField
+        id="outlined"
+        label="Author"
+        onChange={handleAuthorChange}
+        className={useStyles.textField}
+        margin="normal"
+        variant="outlined"
+      />
+    </div>
+    <div>
+      <TextField
+        id="outlined"
+        label="Url"
+        onChange={handleUrlChange}
+        className={useStyles.textField}
+        margin="normal"
+        variant="outlined"
+      />
+    </div>
 
-      <div>
-        <label>
-          Url:
-          <input type="url" onChange={handleUrlChange} />
-        </label>
-      </div>
-
-      {/* <div>
-        <label>
-          Likes
-          <input type="number" onChange={handleLikesChange} />
-        </label>
-      </div>
-      <button type="submit">Submit</button> */}
-    </form>
-  )
+  </form>
+)
 
 export default BlogForm
