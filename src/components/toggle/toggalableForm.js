@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import Button from '@material-ui/core/Button'
 
 
-const Toggalable = (props) => {
+const ToggalableForm = (props) => {
 const [visible, setVisible] = useState(false)
+
 
 const hideWhenVisible = { display: visible ? 'none' : ''}
 const showWhenVisible = { display : visible ? '' : 'none' }
@@ -25,5 +26,5 @@ const toggleVisibility = () => {
     )
 }
 
-export default Toggalable
+export default ToggalableForm 
 
