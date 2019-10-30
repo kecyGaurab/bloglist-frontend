@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography'
 import './App.css'
 
 import {useState, useEffect} from 'react'
-import Toggalable from './components/toggle/toggalable'
+import ToggalableForm from './components/toggle/toggalableForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -76,7 +76,7 @@ const App = () => {
         <div style={hideWhenVisible}>
           <Button
             variant="contained"
-            style={{width:"84px"}}
+            style={{width: '84px'}}
             color="primary"
             onClick={() => setLoginVisible(true)}
           >
@@ -91,13 +91,21 @@ const App = () => {
             handleUsername={handleUsername}
             handlePassword={handlePassword}
           />
-          <Button style={{marginTop:"5px"}} variant="contained" onClick={() => setLoginVisible(false)}>
+          <Button
+            style={{marginTop: '5px'}}
+            variant="contained"
+            onClick={() => setLoginVisible(false)}
+          >
             cancel
           </Button>
         </div>
-        </React.Fragment>
+      </React.Fragment>
     )
   }
+
+  
+
+
 
   const logOut = event => {
     event.preventDefault()
@@ -106,6 +114,7 @@ const App = () => {
     setPassword('')
     window.localStorage.removeItem('loggedBlogUser')
   }
+
 
   const handleUsername = event => {
     setUsername(event.target.value)
@@ -182,7 +191,7 @@ const App = () => {
               <Typography variant="h5" component="h3">
                 <p>{user.name} is logged in</p>
                 <Button
-                style={{width:'104.03px'}}
+                  style={{width: '104.03px'}}
                   variant="contained"
                   color="secondary"
                   className={AppStyle.button}
@@ -194,10 +203,7 @@ const App = () => {
             </Paper>
           </div>
 
-          {/* <div className="new-blog">
-            <h3> Create a new blog</h3>
-          </div> */}
-          <Toggalable buttonLabel="New Blog">
+          <ToggalableForm buttonLabel="New Blog">
             <div>
               <BlogForm
                 addBlog={addBlog}
@@ -214,13 +220,15 @@ const App = () => {
             >
               Create
             </Button>
-          </Toggalable>
+          </ToggalableForm>
 
           <h2>Blogs</h2>
-
           {blogs.map(blog => (
-            <Blog className="blogs" key={blog.id} blog={blog} />
-          ))}
+                <Blog
+                  className="blogs"
+                  key={blog.id}
+                  blog={blog}
+                />))}
         </div>
       )}
     </div>
