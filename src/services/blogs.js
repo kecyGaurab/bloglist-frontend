@@ -29,9 +29,9 @@ const create = newObj => {
 }
 
 //update takes in id and newObject to update the blog 
-const update = async (id, newBlog) => {
-  const response =  await axios.put(`${ baseUrl } /${id}`, newBlog)
-  return response.data
+const update = (id, newBlog) => {
+  const request  =  axios.put(`${ baseUrl }/${id}`, newBlog)
+  return request.then(response => response.data)
 
 }
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import './blog.styles.css'
 
-const Blog = ({blog}) => {
+const Blog = ({blog, handleLike}) => {
   const [visible, setvisible] = useState(false)
 
   const hideWhenVisible = {display: visible ? '' : 'none'}
@@ -17,7 +17,7 @@ const Blog = ({blog}) => {
     </div>
       <div className="blogs" style={hideWhenVisible}>
         <p>{blog.url}</p>
-        <p>likes:{blog.likes}  <button onClick={()=>console.log('click')}><i className="icon-like"></i></button></p>
+        <p >likes:{blog.likes} <button value={blog.id} onClick={handleLike}><i className="icon-like"></i></button></p>
         <p>added by {blog.user.username}</p>
         
       </div>
