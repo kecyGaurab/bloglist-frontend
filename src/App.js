@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography'
 import './App.css'
 
 import {useState, useEffect} from 'react'
-import Toggalable from './components/toggle/toggalable'
+import ToggalableForm from './components/toggle/toggalableForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -30,6 +30,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [loginVisible, setLoginVisible] = useState(false)
+  const [likeBlog, setLikeBlog] = useState({})
 
   useEffect(() => {
     blogService.getAll().then(initialBlogs => {
@@ -76,7 +77,7 @@ const App = () => {
         <div style={hideWhenVisible}>
           <Button
             variant="contained"
-            style={{width:"84px"}}
+            style={{width: '84px'}}
             color="primary"
             onClick={() => setLoginVisible(true)}
           >
@@ -91,13 +92,45 @@ const App = () => {
             handleUsername={handleUsername}
             handlePassword={handlePassword}
           />
-          <Button style={{marginTop:"5px"}} variant="contained" onClick={() => setLoginVisible(false)}>
+          <Button
+            style={{marginTop: '5px'}}
+            variant="contained"
+            onClick={() => setLoginVisible(false)}
+          >
             cancel
           </Button>
         </div>
-        </React.Fragment>
+      </React.Fragment>
     )
   }
+
+  const handleLike = event => {
+    event.preventDefault()
+    const idToUpdate = event.currentTarget.value
+
+    const selectedBlog = blogs.find(n => idToUpdate === n.id)
+    setLikeBlog(selectedBlog)
+    const likeAddedBlog = {...selectedBlog, likes: selectedBlog.likes + 1}
+    console.log('likeAddedBlog', likeAddedBlog)
+    blogService
+      .update(idToUpdate, likeAddedBlog)
+      .then(returnedBlog => {
+        setBlogs(
+          blogs.map(blog => (blog.id !== idToUpdate ? blog : likeAddedBlog))
+        )
+      })
+      .catch(error => {
+        setErrorMessage(
+          `Blog '${selectedBlog.title} doesn't exist on the server`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+        setBlogs(blogs.filter(n => n.id !== idToUpdate))
+      })
+  }
+
+  console.log(likeBlog)
 
   const logOut = event => {
     event.preventDefault()
@@ -182,7 +215,7 @@ const App = () => {
               <Typography variant="h5" component="h3">
                 <p>{user.name} is logged in</p>
                 <Button
-                style={{width:'104.03px'}}
+                  style={{width: '104.03px'}}
                   variant="contained"
                   color="secondary"
                   className={AppStyle.button}
@@ -194,10 +227,7 @@ const App = () => {
             </Paper>
           </div>
 
-          {/* <div className="new-blog">
-            <h3> Create a new blog</h3>
-          </div> */}
-          <Toggalable buttonLabel="New Blog">
+          <ToggalableForm buttonLabel="New Blog">
             <div>
               <BlogForm
                 addBlog={addBlog}
@@ -214,12 +244,16 @@ const App = () => {
             >
               Create
             </Button>
-          </Toggalable>
+          </ToggalableForm>
 
           <h2>Blogs</h2>
-
           {blogs.map(blog => (
-            <Blog className="blogs" key={blog.id} blog={blog} />
+            <Blog
+              handleLike={handleLike}
+              className="blogs"
+              key={blog.id}
+              blog={blog}
+            />
           ))}
         </div>
       )}

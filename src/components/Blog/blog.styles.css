@@ -1,9 +1,36 @@
 .blogs {
+    
     border:hidden;
-    height: 80px;
-    margin:5px;
+    margin:0px;
     border-radius: 10px;
     background-color: aliceblue;
     font-family: sans-serif;
     box-shadow: 3px 3px lightgray;
+    
+
 }
+.blog-name:hover {
+    cursor: pointer;
+}
+
+.like{
+    display: inline;
+}
+
+.icon-like {
+    background-image: url(../../assets/image/like.svg);
+    background-size: cover;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+
+}
+
+
+/* .hidden {
+    display:none;
+}
+
+.shown {
+    display: '';
+} */
