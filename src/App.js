@@ -30,7 +30,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [loginVisible, setLoginVisible] = useState(false)
-  const [likeBlog, setLikeBlog]= useState({})
+  const [likeBlog, setLikeBlog] = useState({})
 
   useEffect(() => {
     blogService.getAll().then(initialBlogs => {
@@ -104,35 +104,33 @@ const App = () => {
     )
   }
 
-  const handleLike =(event) => {
+  const handleLike = event => {
     event.preventDefault()
     const idToUpdate = event.currentTarget.value
-  
-  const selectedBlog = blogs.find(n => idToUpdate === n.id)
-  setLikeBlog(selectedBlog)
-   const likeAddedBlog = { ...selectedBlog, likes: selectedBlog.likes+1}
+
+    const selectedBlog = blogs.find(n => idToUpdate === n.id)
+    setLikeBlog(selectedBlog)
+    const likeAddedBlog = {...selectedBlog, likes: selectedBlog.likes + 1}
     console.log('likeAddedBlog', likeAddedBlog)
-   blogService
-   .update(idToUpdate, likeAddedBlog)
-   .then(returnedBlog => {
-     setBlogs(blogs.map(blog=> blog.id !== idToUpdate ? blog : likeAddedBlog))
-
-   })
-   .catch(error => {
-     setErrorMessage(
-       `Blog '${selectedBlog.title} doesn't exist on the server`
-     )
-     setTimeout(() => {
-       setErrorMessage(null)
-     }, 5000)
-    setBlogs(blogs.filter(n => n.id !== idToUpdate))
-   })
-
+    blogService
+      .update(idToUpdate, likeAddedBlog)
+      .then(returnedBlog => {
+        setBlogs(
+          blogs.map(blog => (blog.id !== idToUpdate ? blog : likeAddedBlog))
+        )
+      })
+      .catch(error => {
+        setErrorMessage(
+          `Blog '${selectedBlog.title} doesn't exist on the server`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+        setBlogs(blogs.filter(n => n.id !== idToUpdate))
+      })
   }
 
   console.log(likeBlog)
-
-
 
   const logOut = event => {
     event.preventDefault()
@@ -141,7 +139,6 @@ const App = () => {
     setPassword('')
     window.localStorage.removeItem('loggedBlogUser')
   }
-
 
   const handleUsername = event => {
     setUsername(event.target.value)
@@ -251,13 +248,13 @@ const App = () => {
 
           <h2>Blogs</h2>
           {blogs.map(blog => (
-                <Blog
-                  handleLike={handleLike}
-                  className="blogs"
-                  key={blog.id}
-                  blog={blog}
-
-                />))}
+            <Blog
+              handleLike={handleLike}
+              className="blogs"
+              key={blog.id}
+              blog={blog}
+            />
+          ))}
         </div>
       )}
     </div>
