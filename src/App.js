@@ -34,9 +34,10 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll().then(initialBlogs => {
-      setBlogs(initialBlogs)
+      const sortedBlog= initialBlogs.sort((a,b) => b.likes-a.likes)
+      setBlogs(sortedBlog)
     })
-  }, [])
+  }, [likeBlog])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -111,14 +112,14 @@ const App = () => {
     const selectedBlog = blogs.find(n => idToUpdate === n.id)
     setLikeBlog(selectedBlog)
     const likeAddedBlog = {...selectedBlog, likes: selectedBlog.likes + 1}
-    console.log('likeAddedBlog', likeAddedBlog)
+    // blogs.sort = (a,b) => b.likes-a.likes
     blogService
       .update(idToUpdate, likeAddedBlog)
       .then(returnedBlog => {
         setBlogs(
           blogs.map(blog => (blog.id !== idToUpdate ? blog : likeAddedBlog))
-        )
-      })
+        )})
+   
       .catch(error => {
         setErrorMessage(
           `Blog '${selectedBlog.title} doesn't exist on the server`
@@ -130,7 +131,7 @@ const App = () => {
       })
   }
 
-  console.log(likeBlog)
+
 
   const logOut = event => {
     event.preventDefault()
