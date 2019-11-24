@@ -32,9 +32,11 @@ const App = () => {
   const [loginVisible, setLoginVisible] = useState(false)
   const [likeBlog, setLikeBlog] = useState({})
 
+  const blogFormRef = React.createRef()
+
   useEffect(() => {
     blogService.getAll().then(initialBlogs => {
-      const sortedBlog= initialBlogs.sort((a,b) => b.likes-a.likes)
+      const sortedBlog = initialBlogs.sort((a, b) => b.likes - a.likes)
       setBlogs(sortedBlog)
     })
   }, [likeBlog])
@@ -112,14 +114,15 @@ const App = () => {
     const selectedBlog = blogs.find(n => idToUpdate === n.id)
     setLikeBlog(selectedBlog)
     const likeAddedBlog = {...selectedBlog, likes: selectedBlog.likes + 1}
-    // blogs.sort = (a,b) => b.likes-a.likes
+
     blogService
       .update(idToUpdate, likeAddedBlog)
       .then(returnedBlog => {
         setBlogs(
           blogs.map(blog => (blog.id !== idToUpdate ? blog : likeAddedBlog))
-        )})
-   
+        )
+      })
+
       .catch(error => {
         setErrorMessage(
           `Blog '${selectedBlog.title} doesn't exist on the server`
@@ -131,7 +134,24 @@ const App = () => {
       })
   }
 
+  const removeBlog = event => {
+    event.preventDefault()
+    const idToDelete = event.currentTarget.value
 
+    const deleted = blogs.filter(blog => blog.id !== idToDelete)
+
+    if (window.confirm(`Are you sure you want to delete ?`)) {
+      blogService
+        .remove(idToDelete)
+        .then(setBlogs(deleted))
+        .catch(error => {
+          setErrorMessage(`You are not authorized to remove this blog`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        })
+    }
+  }
 
   const logOut = event => {
     event.preventDefault()
@@ -165,6 +185,7 @@ const App = () => {
 
   const addBlog = event => {
     event.preventDefault()
+    blogFormRef.current.toggleVisibilty()
     const blogObj = {
       title: newBlog.title,
       author: newBlog.author,
@@ -198,7 +219,7 @@ const App = () => {
         }, 5000)
       })
   }
-
+  console.log('user', user)
   return (
     <div>
       <div className="nav-bar">Blogs</div>
@@ -228,16 +249,18 @@ const App = () => {
             </Paper>
           </div>
 
-          <ToggalableForm buttonLabel="New Blog">
+          <ToggalableForm buttonLabel="New Blog" ref={blogFormRef}>
             <div>
               <BlogForm
                 addBlog={addBlog}
                 handleAuthorChange={handleAuthorChange}
                 handleTitleChange={handleTitleChange}
                 handleUrlChange={handleUrlChange}
+                value={newBlog}
               />
             </div>
             <Button
+              size="small"
               onClick={addBlog}
               variant="contained"
               color="primary"
@@ -249,12 +272,27 @@ const App = () => {
 
           <h2>Blogs</h2>
           {blogs.map(blog => (
-            <Blog
-              handleLike={handleLike}
-              className="blogs"
-              key={blog.id}
-              blog={blog}
-            />
+            <div className="blogs" key={blog.id}>
+              <Blog
+                username={username}
+                removeBlog={removeBlog}
+                handleLike={handleLike}
+                className="blogs"
+                key={blog.id}
+                blog={blog}
+              />
+              { user && blog.user.username === user.username ? (
+                <Button
+                  variant="contained"
+                  size="small"
+                  color="secondary"
+                  value={blog.id}
+                  onClick={removeBlog}
+                >
+                  remove
+                </Button>
+              ) : null}
+            </div>
           ))}
         </div>
       )}
