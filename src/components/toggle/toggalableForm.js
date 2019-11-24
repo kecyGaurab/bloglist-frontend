@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useImperativeHandle } from 'react'
 import Button from '@material-ui/core/Button'
 
 
-const ToggalableForm = (props) => {
+const ToggalableForm = React.forwardRef((props, ref) => {
 const [visible, setVisible] = useState(false)
 
 
@@ -12,6 +12,12 @@ const showWhenVisible = { display : visible ? '' : 'none' }
 const toggleVisibility = () => {
     setVisible(!visible)
 }
+
+    useImperativeHandle(ref, () => {
+        return {
+            toggleVisibility
+        }
+    })
 
     return (
         <div>
@@ -24,7 +30,7 @@ const toggleVisibility = () => {
             </div> 
         </div>
     )
-}
+})
 
 export default ToggalableForm 
 

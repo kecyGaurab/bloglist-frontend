@@ -19,27 +19,12 @@
    
   }
 
-/* 
- 
+.blogs {
+  border:hidden;
+  margin:0px;
+  border-radius: 10px;
+  background-color:#95c7db;
+  font-family: sans-serif;
+
+}
   
-  h3 {
-    font-family: sans-serif;
-    margin:0px;
-    width:400px;
-  }
-
-  p{
-    margin-top:10px;
-  }
-
-  
-
-  .blogs{
-  
-    font-size: 10%;
-  }
-
-  .new-blog{
-    margin-top:20px;
-  } */
-
