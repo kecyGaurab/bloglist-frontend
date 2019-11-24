@@ -1,12 +1,12 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 // import Button from '@material-ui/core/Button'
 
 import './blog.styles.css'
 
-const Blog = ({blog, handleLike}) => {
+const Blog = ({ blog, handleLike }) => {
   const [visible, setvisible] = useState(false)
 
-  const hideWhenVisible = {display: visible ? '' : 'none', marginLeft: '10px'}
+  const hideWhenVisible = { display: visible ? '' : 'none', marginLeft: '10px' }
   const toggleVisbility = () => {
     setvisible(!visible)
   }
@@ -16,7 +16,7 @@ const Blog = ({blog, handleLike}) => {
       <div
         onClick={toggleVisbility}
         className="blog-name"
-        style={{marginLeft: '10px'}}
+        style={{ marginLeft: '10px' }}
       >
         <h3>{blog.title}</h3>
         <p>{blog.author}</p>
@@ -30,16 +30,6 @@ const Blog = ({blog, handleLike}) => {
           </button>
         </p>
         <p>added by {blog.user.username}</p>
-        {/* {blog.user.username ? (
-          <Button
-            variant="contained"
-            size="small"
-            color="secondary"
-            value={blog.id}
-            onClick={removeBlog}>
-            remove
-          </Button>
-        ) : null} */}
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import React from 'react'
 import useStyles from './form.styles'
 import TextField from '@material-ui/core/TextField'
+import PropTypes from 'prop-types'
 
 const BlogForm = ({
   addBlog,
@@ -43,5 +44,12 @@ const BlogForm = ({
 
   </form>
 )
+
+BlogForm.propTypes = {
+  addBlog : PropTypes.func.isRequired,
+  handleAuthorChange: PropTypes.func.isRequired,
+  handleTitleChange: PropTypes.func.isRequired,
+  handleUrlChange: PropTypes.func.isRequired,
+}
 
 export default BlogForm

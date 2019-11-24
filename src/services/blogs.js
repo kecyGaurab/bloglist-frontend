@@ -24,10 +24,10 @@ const create = async(newObj) => {
   // new object will be posted along with config(with the token that was extracted)
   const response = await axios.post(baseUrl, newObj, config)
   return response.data
-  
+
 }
 
-//update takes in id and newObject to update the blog 
+//update takes in id and newObject to update the blog
 const update = async(id, newBlog) => {
   const response  = await axios.put(`${ baseUrl }/${id}`, newBlog)
   return response.data

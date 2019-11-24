@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField'
 import useStyles from './form.styles'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import PropTypes from 'prop-types'
 
 const LoginForm = ({
   handleLogin,
@@ -43,7 +44,7 @@ const LoginForm = ({
       </div>
     </form>
     <Button
-      style={{width:'88px'}}
+      style={{ width:'88px' }}
       type="submit"
       onClick={handleLogin}
       variant="contained"
@@ -54,5 +55,13 @@ const LoginForm = ({
     </Button>
   </div>
 )
+
+LoginForm.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  handleUsername: PropTypes.func.isRequired,
+  handlePassword: PropTypes.func.isRequired,
+}
 
 export default LoginForm
