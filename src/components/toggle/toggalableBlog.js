@@ -2,25 +2,24 @@ import React, { useState } from 'react'
 
 
 const ToggalableBlog = (props) => {
-const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false)
 
 
-const hideWhenVisible = { display: visible ? 'none' : ''}
-// const showWhenVisible = { display : visible ? '' : 'none' }
+  const hideWhenVisible = { display: visible ? 'none' : '' }
 
-const toggleVisibility = () => {
+  const toggleVisibility = () => {
     setVisible(!visible)
-}
+  }
 
-    return (
-        <div onClick={toggleVisibility}>
-            <div >
-            </div>
-            <div style={hideWhenVisible}>
-                {props.children} 
-            </div> 
-        </div>
-    )
+  return (
+    <div onClick={toggleVisibility}>
+      <div >
+      </div>
+      <div style={hideWhenVisible}>
+        {props.children}
+      </div>
+    </div>
+  )
 }
 
 export default ToggalableBlog
