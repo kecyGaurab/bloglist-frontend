@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     width: 200,
   },
   form:{
-      display:'flex'
+    display:'flex'
   },
   login:{
     fontFamily:'Staatliches',
@@ -30,4 +30,4 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default useStyles 
+export default useStyles
