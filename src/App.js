@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography'
 
 import './App.css'
 
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import ToggalableForm from './components/toggle/toggalableForm'
 
 const App = () => {
@@ -72,15 +72,15 @@ const App = () => {
   }
 
   const loginForm = () => {
-    const hideWhenVisible = {display: loginVisible ? 'none' : ''}
-    const showWhenVisible = {display: loginVisible ? '' : 'none'}
+    const hideWhenVisible = { display: loginVisible ? 'none' : '' }
+    const showWhenVisible = { display: loginVisible ? '' : 'none' }
 
     return (
       <React.Fragment>
         <div style={hideWhenVisible}>
           <Button
             variant="contained"
-            style={{width: '84px'}}
+            style={{ width: '84px' }}
             color="primary"
             onClick={() => setLoginVisible(true)}
           >
@@ -96,7 +96,7 @@ const App = () => {
             handlePassword={handlePassword}
           />
           <Button
-            style={{marginTop: '5px'}}
+            style={{ marginTop: '5px' }}
             variant="contained"
             onClick={() => setLoginVisible(false)}
           >
@@ -113,17 +113,17 @@ const App = () => {
 
     const selectedBlog = blogs.find(n => idToUpdate === n.id)
     setLikeBlog(selectedBlog)
-    const likeAddedBlog = {...selectedBlog, likes: selectedBlog.likes + 1}
+    const likeAddedBlog = { ...selectedBlog, likes: selectedBlog.likes + 1 }
 
     blogService
       .update(idToUpdate, likeAddedBlog)
-      .then(returnedBlog => {
+      .then(() => {
         setBlogs(
           blogs.map(blog => (blog.id !== idToUpdate ? blog : likeAddedBlog))
         )
       })
 
-      .catch(error => {
+      .catch(() => {
         setErrorMessage(
           `Blog '${selectedBlog.title} doesn't exist on the server`
         )
@@ -140,12 +140,12 @@ const App = () => {
 
     const deleted = blogs.filter(blog => blog.id !== idToDelete)
 
-    if (window.confirm(`Are you sure you want to delete ?`)) {
+    if (window.confirm('Are you sure you want to delete ?')) {
       blogService
         .remove(idToDelete)
         .then(setBlogs(deleted))
-        .catch(error => {
-          setErrorMessage(`You are not authorized to remove this blog`)
+        .catch(() => {
+          setErrorMessage('You are not authorized to remove this blog')
           setTimeout(() => {
             setErrorMessage(null)
           }, 5000)
@@ -170,17 +170,17 @@ const App = () => {
 
   const handleTitleChange = event => {
     event.preventDefault()
-    setNewBlog({...newBlog, title: event.target.value})
+    setNewBlog({ ...newBlog, title: event.target.value })
   }
 
   const handleAuthorChange = event => {
     event.preventDefault()
-    setNewBlog({...newBlog, author: event.target.value})
+    setNewBlog({ ...newBlog, author: event.target.value })
   }
 
   const handleUrlChange = event => {
     event.preventDefault()
-    setNewBlog({...newBlog, url: event.target.value})
+    setNewBlog({ ...newBlog, url: event.target.value })
   }
 
   const addBlog = event => {
@@ -237,7 +237,7 @@ const App = () => {
               <Typography variant="h5" component="h3">
                 <p>{user.name} is logged in</p>
                 <Button
-                  style={{width: '104.03px'}}
+                  style={{ width: '104.03px' }}
                   variant="contained"
                   color="secondary"
                   className={AppStyle.button}
